@@ -1,0 +1,2602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Avadesh Patel | Advocate Manager</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#f3f6fa;--card:#fff;--text:#172033;--muted:#64748b;
+--border:#e2e8f0;--primary:#2563eb;--dark:#111827;
+--green:#16a34a;--red:#dc2626;--gold:#b7791f;--purple:#7c3aed
+}
+body.dark{
+--bg:#0f172a;--card:#1e293b;--text:#f8fafc;
+--muted:#94a3b8;--border:#334155
+}
+*{scrollbar-width:thin}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+
+.login{
+position:fixed;inset:0;z-index:9999;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#0f172a,#1d4ed8);
+padding:20px
+}
+.loginbox{
+width:390px;max-width:100%;background:#fff;
+padding:32px;border-radius:18px;
+box-shadow:0 25px 70px #0008
+}
+.loginicon{text-align:center;font-size:45px}
+.loginbox h1{text-align:center;color:#111827;margin:8px 0}
+.loginbox p{text-align:center;color:#64748b;margin-bottom:25px}
+.lg{margin-bottom:15px}
+.lg label{display:block;color:#111827;font-size:13px;font-weight:bold;margin-bottom:6px}
+.lg input{
+width:100%;padding:12px;border:1px solid #d1d5db;
+border-radius:8px;outline:none
+}
+.loginbtn{
+width:100%;padding:12px;border:0;border-radius:8px;
+background:#2563eb;color:white;font-weight:bold
+}
+.loginerror{
+display:none;color:#dc2626;text-align:center;
+font-size:13px;margin-top:12px
+}
+
+.sidebar{
+position:fixed;top:0;bottom:0;left:0;width:240px;
+background:#111827;color:white;padding:18px 13px;
+z-index:1000;overflow:auto
+}
+.logo{font-size:19px;font-weight:bold;padding:10px;margin-bottom:18px}
+.logo span{color:#d4af37}
+.nav{
+display:block;width:100%;border:0;background:transparent;
+color:#cbd5e1;text-align:left;padding:11px 12px;
+border-radius:8px;margin-bottom:4px
+}
+.nav:hover,.nav.active{background:#263246;color:white}
+.nav small{display:block;font-size:9px;color:#94a3b8;margin-top:3px}
+
+.main{margin-left:240px;padding:20px;min-height:100vh}
+.top{
+display:flex;justify-content:space-between;align-items:center;
+gap:12px;margin-bottom:20px
+}
+.top h1{font-size:25px}
+.topright{
+display:flex;align-items:center;gap:8px
+}
+.user{
+display:flex;align-items:center;gap:8px;
+background:var(--card);border:1px solid var(--border);
+padding:7px 10px;border-radius:10px
+}
+.avatar{
+width:38px;height:38px;border-radius:50%;
+background:#d4af37;color:#111827;
+display:flex;align-items:center;justify-content:center;font-weight:bold
+}
+.menu{
+display:none;border:0;background:#111827;color:white;
+padding:9px;border-radius:7px
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.card,.panel{
+background:var(--card);border:1px solid var(--border);
+border-radius:12px;padding:17px;
+box-shadow:0 4px 20px #00000008;
+margin-bottom:17px
+}
+.stats{
+display:grid;grid-template-columns:repeat(5,1fr);
+gap:12px;margin-bottom:18px
+}
+.statvalue{font-size:26px;font-weight:bold;margin-top:7px}
+.statlabel{font-size:11px;color:var(--muted)}
+.staticon{font-size:22px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quickgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.quick{
+border:1px solid var(--border);background:var(--card);
+color:var(--text);border-radius:9px;padding:13px;text-align:left
+}
+.quick b{display:block;margin-bottom:5px}
+.quick small{color:var(--muted);font-size:10px}
+
+.head{
+display:flex;justify-content:space-between;align-items:center;
+gap:10px;margin-bottom:14px
+}
+.head h2{font-size:18px}
+
+.btn{
+border:0;border-radius:7px;padding:9px 12px;
+background:var(--primary);color:white;font-size:12px
+}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.btn.gold{background:var(--gold)}
+.btn.purple{background:var(--purple)}
+.btn.gray{background:#475569}
+.btn.small{padding:6px 8px;font-size:10px;margin:2px}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.toolbar input,.toolbar select{
+padding:9px;border:1px solid var(--border);
+border-radius:7px;background:var(--card);color:var(--text)
+}
+.toolbar input{min-width:230px}
+
+.table{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{
+padding:10px;border-bottom:1px solid var(--border);
+font-size:12px;text-align:left
+}
+th{color:var(--muted)}
+.empty{text-align:center!important;color:var(--muted);padding:30px!important}
+
+.badge{
+display:inline-block;padding:5px 8px;border-radius:20px;
+font-size:10px
+}
+.Pending{background:#fef3c7;color:#92400e}
+.Running{background:#dbeafe;color:#1e40af}
+.Urgent{background:#fee2e2;color:#991b1b}
+.Closed{background:#dcfce7;color:#166534}
+
+.modal{
+position:fixed;inset:0;background:#0009;z-index:3000;
+display:none;align-items:center;justify-content:center;padding:15px
+}
+.modal.show{display:flex}
+.modalbox{
+width:min(900px,100%);max-height:93vh;overflow:auto;
+background:var(--card);color:var(--text);
+border-radius:13px;padding:20px
+}
+.modalhead{
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:18px
+}
+.close{
+border:0;width:32px;height:32px;border-radius:50%;
+background:#e5e7eb;color:#111827
+}
+
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.group{display:flex;flex-direction:column}
+.group.full{grid-column:1/-1}
+.group label{font-size:11px;font-weight:bold;margin-bottom:5px}
+.group label small{display:block;color:var(--muted);font-weight:normal}
+.group input,.group select,.group textarea{
+padding:10px;border:1px solid var(--border);
+border-radius:7px;background:var(--card);color:var(--text)
+}
+.group textarea{min-height:90px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}
+
+.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.detail{
+padding:12px;background:#94a3b812;border-radius:8px;
+font-size:13px
+}
+.detail strong{
+display:block;font-size:10px;color:var(--muted);margin-bottom:4px
+}
+
+.progress{
+height:8px;background:#e2e8f0;border-radius:20px;
+overflow:hidden;margin-top:8px
+}
+.progressbar{height:100%;background:#2563eb}
+
+.notification{
+padding:12px;border-left:4px solid #2563eb;
+background:#2563eb12;border-radius:7px;margin-bottom:8px
+}
+.notification.red{border-left-color:#dc2626}
+.notification.gold{border-left-color:#b7791f}
+.notification.green{border-left-color:#16a34a}
+
+.task{
+display:flex;align-items:center;gap:9px;
+padding:10px;border-bottom:1px solid var(--border)
+}
+.task input{width:17px;height:17px}
+.task.done{text-decoration:line-through;color:var(--muted)}
+
+.calendar{
+display:grid;grid-template-columns:repeat(7,1fr);
+gap:5px
+}
+.calday{
+min-height:75px;border:1px solid var(--border);
+border-radius:6px;padding:6px;background:var(--card)
+}
+.calday b{font-size:11px}
+.calevent{
+margin-top:5px;background:#2563eb;color:white;
+padding:3px;border-radius:4px;font-size:8px
+}
+
+.toast{
+position:fixed;right:18px;bottom:18px;
+background:#111827;color:white;padding:12px 17px;
+border-radius:8px;z-index:7000;display:none
+}
+.toast.show{display:block}
+
+@media(max-width:1100px){
+.stats{grid-template-columns:repeat(3,1fr)}
+.quickgrid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:800px){
+.sidebar{transform:translateX(-100%);transition:.2s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0;padding:13px}
+.menu{display:block}
+.stats{grid-template-columns:1fr 1fr}
+.grid2{grid-template-columns:1fr}
+.quickgrid{grid-template-columns:1fr 1fr}
+.formgrid,.detailgrid{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+.stats{grid-template-columns:1fr}
+.top h1{font-size:20px}
+.user>div:nth-child(2){display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login" id="loginScreen">
+<div class="loginbox">
+<div class="loginicon">⚖️</div>
+<h1>Avadesh Patel</h1>
+<p>Advocate Manager / अधिवक्ता मैनेजर</p>
+
+<div class="lg">
+<label>Username / यूजरनेम</label>
+<input id="loginUser" autocomplete="username">
+</div>
+
+<div class="lg">
+<label>Password / पासवर्ड</label>
+<input id="loginPass" type="password" autocomplete="current-password">
+</div>
+
+<button class="loginbtn" id="loginBtn">Login / लॉगिन</button>
+<div class="loginerror" id="loginError">
+Wrong username or password / गलत यूजरनेम या पासवर्ड
+</div>
+</div>
+</div>
+
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="logo">⚖️ <span>Avadesh</span> Patel</div>
+
+<button class="nav active" data-page="dashboard">
+🏠 Dashboard
+<small>मुख्य डैशबोर्ड</small>
+</button>
+
+<button class="nav" data-page="clients">
+👥 Clients
+<small>ग्राहक</small>
+</button>
+
+<button class="nav" data-page="cases">
+📁 Cases
+<small>केस</small>
+</button>
+
+<button class="nav" data-page="calendar">
+🗓️ Calendar
+<small>कैलेंडर</small>
+</button>
+
+<button class="nav" data-page="hearings">
+📅 Hearings
+<small>सुनवाई</small>
+</button>
+
+<button class="nav" data-page="payments">
+💰 Payments
+<small>भुगतान</small>
+</button>
+
+<button class="nav" data-page="tasks">
+✅ Tasks
+<small>काम</small>
+</button>
+
+<button class="nav" data-page="documents">
+📄 Documents
+<small>दस्तावेज</small>
+</button>
+
+<button class="nav" data-page="notifications">
+🔔 Notifications
+<small>सूचनाएं</small>
+</button>
+
+<button class="nav" data-page="notes">
+📝 Notes
+<small>नोट्स</small>
+</button>
+
+<button class="nav" data-page="reports">
+📊 Reports
+<small>रिपोर्ट</small>
+</button>
+
+<button class="nav" data-page="settings">
+⚙️ Settings
+<small>सेटिंग</small>
+</button>
+
+</aside>
+
+
+<main class="main">
+
+<header class="top">
+
+<div style="display:flex;align-items:center;gap:10px">
+<button class="menu" id="menuBtn">☰</button>
+<h1 id="pageTitle">Dashboard</h1>
+</div>
+
+<div class="user">
+<div class="avatar">AP</div>
+<div>
+<b>Avadesh Patel</b><br>
+<small>Advocate / अधिवक्ता</small>
+</div>
+<button class="btn red small" id="logoutBtn">Logout</button>
+</div>
+
+</header>
+
+
+<!-- DASHBOARD -->
+<section class="section active" id="dashboard">
+
+<div class="stats">
+
+<div class="card">
+<div class="staticon">👥</div>
+<div class="statlabel">Clients / ग्राहक</div>
+<div class="statvalue" id="sClients">0</div>
+</div>
+
+<div class="card">
+<div class="staticon">📁</div>
+<div class="statlabel">Cases / केस</div>
+<div class="statvalue" id="sCases">0</div>
+</div>
+
+<div class="card">
+<div class="staticon">📅</div>
+<div class="statlabel">Hearings / सुनवाई</div>
+<div class="statvalue" id="sHearings">0</div>
+</div>
+
+<div class="card">
+<div class="staticon">💰</div>
+<div class="statlabel">Payment Due / बाकी</div>
+<div class="statvalue" id="sDue">₹0</div>
+</div>
+
+<div class="card">
+<div class="staticon">✅</div>
+<div class="statlabel">Tasks / काम</div>
+<div class="statvalue" id="sTasks">0</div>
+</div>
+
+</div>
+
+
+<div class="panel">
+<div class="head">
+<h2>Welcome, Avadesh Patel 👋</h2>
+<span>⚖️ Advocate Dashboard</span>
+</div>
+<p style="color:var(--muted);font-size:13px">
+यह आपका personal advocate management dashboard है।
+</p>
+</div>
+
+
+<div class="panel">
+<div class="head"><h2>Quick Actions / जल्दी काम</h2></div>
+
+<div class="quickgrid">
+
+<button class="quick" onclick="openAdd()">
+<b>➕ Add Client</b>
+<small>नया ग्राहक</small>
+</button>
+
+<button class="quick" onclick="openPage('cases')">
+<b>📁 Cases</b>
+<small>केस देखें</small>
+</button>
+
+<button class="quick" onclick="openPage('calendar')">
+<b>🗓️ Calendar</b>
+<small>कैलेंडर</small>
+</button>
+
+<button class="quick" onclick="openPage('payments')">
+<b>💰 Payment</b>
+<small>भुगतान</small>
+</button>
+
+<button class="quick" onclick="openPage('tasks')">
+<b>✅ Task</b>
+<small>काम जोड़ें</small>
+</button>
+
+<button class="quick" onclick="openPage('notifications')">
+<b>🔔 Alerts</b>
+<small>सूचनाएं</small>
+</button>
+
+</div>
+</div>
+
+
+<div class="grid2">
+
+<div class="panel">
+<div class="head"><h2>Recent Clients / हाल के ग्राहक</h2></div>
+<div class="table">
+<table>
+<thead><tr>
+<th>Name</th><th>Status</th><th>Action</th>
+</tr></thead>
+<tbody id="recent"></tbody>
+</table>
+</div>
+</div>
+
+<div class="panel">
+<div class="head"><h2>Upcoming Hearings / अगली सुनवाई</h2></div>
+<div class="table">
+<table>
+<thead><tr>
+<th>Date</th><th>Client</th><th>Case</th>
+</tr></thead>
+<tbody id="upcoming"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CLIENTS -->
+<section class="section" id="clients">
+<div class="panel">
+
+<div class="head">
+<h2>Clients / ग्राहक</h2>
+<button class="btn" onclick="openAdd()">➕ Add Client</button>
+</div>
+
+<div class="toolbar">
+<input id="clientSearch" placeholder="🔎 Search client / ग्राहक खोजें">
+<select id="clientFilter">
+<option value="">All Status / सभी</option>
+<option>Pending</option>
+<option>Running</option>
+<option>Urgent</option>
+<option>Closed</option>
+</select>
+<button class="btn green" onclick="exportCSV()">📥 Export CSV</button>
+</div>
+
+<div class="table">
+<table>
+<thead>
+<tr>
+<th>ID</th><th>Name</th><th>Phone</th><th>Case</th>
+<th>Status</th><th>Fee</th><th>Actions</th>
+</tr>
+</thead>
+<tbody id="clientTable"></tbody>
+</table>
+</div>
+
+</div>
+</section>
+
+
+<!-- CASES -->
+<section class="section" id="cases">
+<div class="panel">
+<div class="head">
+<h2>Cases / केस</h2>
+</div>
+
+<div class="toolbar">
+<input id="caseSearch" placeholder="🔎 Search case / केस खोजें">
+<select id="caseStatusFilter">
+<option value="">All</option>
+<option>Pending</option>
+<option>Running</option>
+<option>Urgent</option>
+<option>Closed</option>
+</select>
+</div>
+
+<div class="table">
+<table>
+<thead>
+<tr>
+<th>Case No.</th><th>Client</th><th>Type</th>
+<th>Court</th><th>Opposite Party</th>
+<th>Status</th><th>Progress</th>
+</tr>
+</thead>
+<tbody id="caseTable"></tbody>
+</table>
+</div>
+</div>
+</section>
+
+
+<!-- CALENDAR -->
+<section class="section" id="calendar">
+
+<div class="panel">
+
+<div class="head">
+<h2 id="calendarTitle">Calendar / कैलेंडर</h2>
+<div>
+<button class="btn small" onclick="changeMonth(-1)">←</button>
+<button class="btn small" onclick="changeMonth(1)">→</button>
+</div>
+</div>
+
+<div class="calendar" id="calendarBox"></div>
+
+</div>
+
+</section>
+
+
+<!-- HEARINGS -->
+<section class="section" id="hearings">
+<div class="panel">
+
+<div class="head">
+<h2>Hearings / सुनवाई</h2>
+<button class="btn" onclick="printHearings()">🖨️ Print</button>
+</div>
+
+<div class="table">
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Client</th><th>Case</th>
+<th>Court</th><th>Status</th>
+</tr>
+</thead>
+<tbody id="hearingTable"></tbody>
+</table>
+</div>
+
+</div>
+</section>
+
+
+<!-- PAYMENTS -->
+<section class="section" id="payments">
+<div class="panel">
+
+<div class="head">
+<h2>Payments / भुगतान</h2>
+</div>
+
+<div class="grid3">
+
+<div class="card">
+<div class="statlabel">Total Fee</div>
+<div class="statvalue" id="pTotal">₹0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Paid</div>
+<div class="statvalue" id="pPaid">₹0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Remaining</div>
+<div class="statvalue" id="pRemaining">₹0</div>
+</div>
+
+</div>
+
+<div class="table">
+<table>
+<thead>
+<tr>
+<th>Client</th><th>Total</th><th>Paid</th>
+<th>Remaining</th><th>Mode</th><th>Action</th>
+</tr>
+</thead>
+<tbody id="paymentTable"></tbody>
+</table>
+</div>
+
+</div>
+</section>
+
+
+<!-- TASKS -->
+<section class="section" id="tasks">
+<div class="panel">
+
+<div class="head">
+<h2>Tasks / काम</h2>
+<button class="btn" onclick="addTask()">➕ Add Task</button>
+</div>
+
+<div id="taskList"></div>
+
+</div>
+</section>
+
+
+<!-- DOCUMENTS -->
+<section class="section" id="documents">
+<div class="panel">
+
+<div class="head">
+<h2>Documents / दस्तावेज</h2>
+<button class="btn" onclick="addDocument()">➕ Add Document</button>
+</div>
+
+<div class="toolbar">
+<input id="docSearch" placeholder="🔎 Search document">
+</div>
+
+<div class="table">
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Client</th>
+<th>Type</th>
+<th>Date</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="docTable"></tbody>
+</table>
+</div>
+
+</div>
+</section>
+
+
+<!-- NOTIFICATIONS -->
+<section class="section" id="notifications">
+<div class="panel">
+
+<div class="head">
+<h2>Notifications / सूचनाएं</h2>
+<button class="btn gray" onclick="clearNotifications()">Clear</button>
+</div>
+
+<div id="notificationList"></div>
+
+</div>
+</section>
+
+
+<!-- NOTES -->
+<section class="section" id="notes">
+<div class="panel">
+
+<div class="head">
+<h2>Notes / नोट्स</h2>
+</div>
+
+<textarea id="notesBox"
+style="width:100%;min-height:280px;padding:13px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text)"
+placeholder="Important notes / जरूरी नोट्स"></textarea>
+
+<div class="actions">
+<button class="btn green" onclick="saveNotes()">💾 Save</button>
+<button class="btn gray" onclick="clearNotes()">Clear</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- REPORTS -->
+<section class="section" id="reports">
+<div class="panel">
+
+<div class="head">
+<h2>Reports / रिपोर्ट</h2>
+</div>
+
+<div class="grid3">
+
+<div class="card">
+<div class="statlabel">Total Clients</div>
+<div class="statvalue" id="rClients">0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Running Cases</div>
+<div class="statvalue" id="rRunning">0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Closed Cases</div>
+<div class="statvalue" id="rClosed">0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Total Fees</div>
+<div class="statvalue" id="rFees">₹0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Collected</div>
+<div class="statvalue" id="rCollected">₹0</div>
+</div>
+
+<div class="card">
+<div class="statlabel">Pending</div>
+<div class="statvalue" id="rPending">₹0</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- SETTINGS -->
+<section class="section" id="settings">
+<div class="panel">
+
+<div class="head">
+<h2>Settings / सेटिंग</h2>
+</div>
+
+<div class="actions">
+
+<button class="btn" onclick="toggleTheme()">
+🌓 Dark / Light
+</button>
+
+<button class="btn purple" onclick="changePassword()">
+🔐 Change Password
+</button>
+
+<button class="btn green" onclick="backupData()">
+💾 Backup
+</button>
+
+<button class="btn gray" onclick="document.getElementById('restoreFile').click()">
+📥 Restore
+</button>
+
+<button class="btn red" onclick="deleteAllData()">
+🗑️ Delete All Data
+</button>
+
+<input type="file" id="restoreFile" accept=".json" hidden>
+
+</div>
+
+<br>
+
+<div class="detail">
+<strong>Logged in as / लॉगिन</strong>
+Avadesh Patel
+</div>
+
+<br>
+
+<div class="detail">
+<strong>Username / यूजरनेम</strong>
+avadesh
+</div>
+
+</div>
+</section>
+
+</main>
+
+
+<!-- CLIENT MODAL -->
+<div class="modal" id="clientModal">
+<div class="modalbox">
+
+<div class="modalhead">
+<h2 id="modalTitle">Add Client / ग्राहक जोड़ें</h2>
+<button class="close" onclick="closeModal('clientModal')">✕</button>
+</div>
+
+<form id="clientForm">
+
+<input type="hidden" id="editId">
+
+<div class="formgrid">
+
+<div class="group">
+<label>Name * <small>नाम</small></label>
+<input id="name" required>
+</div>
+
+<div class="group">
+<label>Phone * <small>मोबाइल</small></label>
+<input id="phone" required>
+</div>
+
+<div class="group">
+<label>Email <small>ईमेल</small></label>
+<input id="email">
+</div>
+
+<div class="group">
+<label>Address <small>पता</small></label>
+<input id="address">
+</div>
+
+<div class="group">
+<label>Case Number <small>केस नंबर</small></label>
+<input id="caseNo">
+</div>
+
+<div class="group">
+<label>Case Type <small>केस प्रकार</small></label>
+<select id="caseType">
+<option value="">Select</option>
+<option>Civil</option>
+<option>Criminal</option>
+<option>Family</option>
+<option>Property</option>
+<option>Consumer</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="group">
+<label>Court <small>कोर्ट</small></label>
+<input id="court">
+</div>
+
+<div class="group">
+<label>Opposite Party <small>सामने वाला पक्ष</small></label>
+<input id="opposite">
+</div>
+
+<div class="group">
+<label>Status <small>स्थिति</small></label>
+<select id="status">
+<option>Pending</option>
+<option>Running</option>
+<option>Urgent</option>
+<option>Closed</option>
+</select>
+</div>
+
+<div class="group">
+<label>Case Progress % <small>केस की प्रगति</small></label>
+<input id="progress" type="number" min="0" max="100" value="0">
+</div>
+
+<div class="group">
+<label>Next Hearing <small>अगली सुनवाई</small></label>
+<input id="hearing" type="date">
+</div>
+
+<div class="group">
+<label>Total Fee <small>कुल फीस</small></label>
+<input id="fee" type="number" min="0" value="0">
+</div>
+
+<div class="group">
+<label>Paid Fee <small>जमा फीस</small></label>
+<input id="paid" type="number" min="0" value="0">
+</div>
+
+<div class="group full">
+<label>Case Notes <small>केस नोट्स</small></label>
+<textarea id="clientNotes"></textarea>
+</div>
+
+</div>
+
+<div class="actions">
+<button class="btn green" type="submit">
+💾 Save Client / सेव
+</button>
+<button class="btn gray" type="button" onclick="closeModal('clientModal')">
+Cancel
+</button>
+</div>
+
+</form>
+
+</div>
+</div>
+
+
+<!-- DETAILS MODAL -->
+<div class="modal" id="detailsModal">
+<div class="modalbox">
+
+<div class="modalhead">
+<h2>Client Profile / ग्राहक प्रोफाइल</h2>
+<button class="close" onclick="closeModal('detailsModal')">✕</button>
+</div>
+
+<div id="details"></div>
+
+</div>
+</div>
+
+
+<!-- PAYMENT MODAL -->
+<div class="modal" id="payModal">
+<div class="modalbox">
+
+<div class="modalhead">
+<h2>Payment / भुगतान</h2>
+<button class="close" onclick="closeModal('payModal')">✕</button>
+</div>
+
+<div id="payBox"></div>
+
+</div>
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* ================= STORAGE ================= */
+
+let clients=JSON.parse(
+localStorage.getItem("avadesh_clients")||"[]"
+);
+
+let tasks=JSON.parse(
+localStorage.getItem("avadesh_tasks")||"[]"
+);
+
+let documents=JSON.parse(
+localStorage.getItem("avadesh_documents")||"[]"
+);
+
+let payments=JSON.parse(
+localStorage.getItem("avadesh_payments")||"[]"
+);
+
+let password=localStorage.getItem("avadesh_password")||"1234";
+
+let currentPayment=null;
+
+let calendarDate=new Date();
+
+
+/* ================= HELPERS ================= */
+
+const $=id=>document.getElementById(id);
+
+function value(id){
+return ($(id)?.value||"").trim();
+}
+
+function money(n){
+return Number(n||0).toLocaleString("en-IN");
+}
+
+function saveAll(){
+
+localStorage.setItem(
+"avadesh_clients",JSON.stringify(clients)
+);
+
+localStorage.setItem(
+"avadesh_tasks",JSON.stringify(tasks)
+);
+
+localStorage.setItem(
+"avadesh_documents",JSON.stringify(documents)
+);
+
+localStorage.setItem(
+"avadesh_payments",JSON.stringify(payments)
+);
+
+}
+
+function id(){
+return Date.now().toString(36)+Math.random()
+.toString(36).slice(2);
+}
+
+function clientId(){
+return "CL-"+Date.now().toString().slice(-6);
+}
+
+function esc(x){
+return String(x??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+function toast(text){
+
+$("toast").textContent=text;
+$("toast").classList.add("show");
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer=setTimeout(()=>{
+$("toast").classList.remove("show")
+},2200);
+
+}
+
+function closeModal(id){
+$(id).classList.remove("show");
+}
+
+function empty(cols,text){
+return `<tr><td colspan="${cols}" class="empty">${text}</td></tr>`;
+}
+
+
+/* ================= LOGIN ================= */
+
+function login(){
+
+const u=value("loginUser");
+const p=value("loginPass");
+
+if(u==="avadesh"&&p===password){
+
+sessionStorage.setItem("avadesh_login","yes");
+
+$("loginScreen").style.display="none";
+
+toast("Login successful / लॉगिन सफल");
+
+}else{
+
+$("loginError").style.display="block";
+
+}
+
+}
+
+$("loginBtn").onclick=login;
+
+$("loginPass").onkeydown=e=>{
+if(e.key==="Enter")login()
+};
+
+$("loginUser").onkeydown=e=>{
+if(e.key==="Enter")login()
+};
+
+$("logoutBtn").onclick=()=>{
+
+if(confirm("Logout?\nक्या लॉगआउट करना है?")){
+
+sessionStorage.removeItem("avadesh_login");
+location.reload();
+
+}
+
+};
+
+if(sessionStorage.getItem("avadesh_login")==="yes"){
+$("loginScreen").style.display="none";
+}
+
+
+/* ================= NAVIGATION ================= */
+
+const pageTitles={
+dashboard:"Dashboard",
+clients:"Clients / ग्राहक",
+cases:"Cases / केस",
+calendar:"Calendar / कैलेंडर",
+hearings:"Hearings / सुनवाई",
+payments:"Payments / भुगतान",
+tasks:"Tasks / काम",
+documents:"Documents / दस्तावेज",
+notifications:"Notifications / सूचनाएं",
+notes:"Notes / नोट्स",
+reports:"Reports / रिपोर्ट",
+settings:"Settings / सेटिंग"
+};
+
+document.querySelectorAll(".nav").forEach(n=>{
+
+n.onclick=()=>{
+openPage(n.dataset.page)
+};
+
+});
+
+function openPage(page){
+
+document.querySelectorAll(".section")
+.forEach(s=>s.classList.remove("active"));
+
+$(page).classList.add("active");
+
+document.querySelectorAll(".nav")
+.forEach(n=>{
+n.classList.toggle("active",n.dataset.page===page)
+});
+
+$("pageTitle").textContent=pageTitles[page];
+
+$("sidebar").classList.remove("open");
+
+render();
+
+}
+
+$("menuBtn").onclick=()=>{
+$("sidebar").classList.toggle("open")
+};
+
+
+/* ================= CLIENT ================= */
+
+function openAdd(){
+
+$("clientForm").reset();
+
+$("editId").value="";
+
+$("status").value="Pending";
+
+$("progress").value=0;
+
+$("fee").value=0;
+
+$("paid").value=0;
+
+$("modalTitle").textContent=
+"Add Client / ग्राहक जोड़ें";
+
+$("clientModal").classList.add("show");
+
+}
+
+$("clientForm").onsubmit=e=>{
+
+e.preventDefault();
+
+const edit=value("editId");
+
+const old=clients.find(c=>c.id===edit);
+
+const c={
+
+id:edit||id(),
+
+clientId:old?.clientId||clientId(),
+
+name:value("name"),
+phone:value("phone"),
+email:value("email"),
+address:value("address"),
+caseNo:value("caseNo"),
+caseType:value("caseType"),
+court:value("court"),
+opposite:value("opposite"),
+status:value("status"),
+progress:Number(value("progress"))||0,
+hearing:value("hearing"),
+fee:Number(value("fee"))||0,
+paid:Number(value("paid"))||0,
+notes:value("clientNotes"),
+
+pinned:old?.pinned||false
+
+};
+
+if(edit){
+
+const index=clients.findIndex(x=>x.id===edit);
+
+clients[index]=c;
+
+toast("Client updated / ग्राहक अपडेट हुआ");
+
+}else{
+
+clients.push(c);
+
+toast("Client added / ग्राहक जोड़ा गया");
+
+}
+
+saveAll();
+
+closeModal("clientModal");
+
+render();
+
+};
+
+function editClient(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+$("editId").value=c.id;
+$("name").value=c.name||"";
+$("phone").value=c.phone||"";
+$("email").value=c.email||"";
+$("address").value=c.address||"";
+$("caseNo").value=c.caseNo||"";
+$("caseType").value=c.caseType||"";
+$("court").value=c.court||"";
+$("opposite").value=c.opposite||"";
+$("status").value=c.status||"Pending";
+$("progress").value=c.progress||0;
+$("hearing").value=c.hearing||"";
+$("fee").value=c.fee||0;
+$("paid").value=c.paid||0;
+$("clientNotes").value=c.notes||"";
+
+$("modalTitle").textContent=
+"Edit Client / ग्राहक बदलें";
+
+$("clientModal").classList.add("show");
+
+}
+
+function deleteClient(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+if(!confirm(
+"Delete "+c.name+"?\nक्या ग्राहक को हटाना है?"
+))return;
+
+clients=clients.filter(a=>a.id!==x);
+
+payments=payments.filter(a=>a.clientId!==x);
+
+saveAll();
+
+render();
+
+toast("Client deleted / ग्राहक हटा दिया गया");
+
+}
+
+function viewClient(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+const remaining=Math.max(
+0,(c.fee||0)-(c.paid||0)
+);
+
+$("details").innerHTML=`
+
+<div class="detailgrid">
+
+<div class="detail">
+<strong>Name / नाम</strong>${esc(c.name)}
+</div>
+
+<div class="detail">
+<strong>Client ID</strong>${esc(c.clientId)}
+</div>
+
+<div class="detail">
+<strong>Phone / मोबाइल</strong>${esc(c.phone)}
+</div>
+
+<div class="detail">
+<strong>Email / ईमेल</strong>${esc(c.email||"-")}
+</div>
+
+<div class="detail">
+<strong>Address / पता</strong>${esc(c.address||"-")}
+</div>
+
+<div class="detail">
+<strong>Case Number / केस नंबर</strong>${esc(c.caseNo||"-")}
+</div>
+
+<div class="detail">
+<strong>Case Type / केस प्रकार</strong>${esc(c.caseType||"-")}
+</div>
+
+<div class="detail">
+<strong>Court / कोर्ट</strong>${esc(c.court||"-")}
+</div>
+
+<div class="detail">
+<strong>Opposite Party</strong>${esc(c.opposite||"-")}
+</div>
+
+<div class="detail">
+<strong>Status / स्थिति</strong>
+<span class="badge ${esc(c.status)}">${esc(c.status)}</span>
+</div>
+
+<div class="detail">
+<strong>Next Hearing / अगली सुनवाई</strong>
+${esc(c.hearing||"-")}
+</div>
+
+<div class="detail">
+<strong>Total Fee / कुल फीस</strong>
+₹${money(c.fee)}
+</div>
+
+<div class="detail">
+<strong>Paid / जमा</strong>
+₹${money(c.paid)}
+</div>
+
+<div class="detail">
+<strong>Remaining / बाकी</strong>
+₹${money(remaining)}
+</div>
+
+<div class="detail">
+<strong>Progress / प्रगति</strong>
+${c.progress||0}%
+<div class="progress">
+<div class="progressbar" style="width:${c.progress||0}%"></div>
+</div>
+</div>
+
+<div class="detail" style="grid-column:1/-1">
+<strong>Notes / नोट्स</strong>
+${esc(c.notes||"-")}
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn" onclick="closeModal('detailsModal');editClient('${c.id}')">
+✏️ Edit
+</button>
+
+<button class="btn gold" onclick="closeModal('detailsModal');payment('${c.id}')">
+💰 Payment
+</button>
+
+<a class="btn green" style="text-decoration:none"
+href="tel:${esc(c.phone)}">
+📞 Call
+</a>
+
+<a class="btn" style="text-decoration:none"
+target="_blank"
+href="https://wa.me/91${esc(c.phone.replace(/\D/g,''))}">
+💬 WhatsApp
+</a>
+
+<button class="btn red" onclick="closeModal('detailsModal');deleteClient('${c.id}')">
+🗑️ Delete
+</button>
+
+</div>
+`;
+
+$("detailsModal").classList.add("show");
+
+}
+
+$("clientSearch").oninput=renderClients;
+$("clientFilter").onchange=renderClients;
+
+function renderClients(){
+
+const q=value("clientSearch").toLowerCase();
+const f=value("clientFilter");
+
+let list=clients.filter(c=>{
+
+const text=(
+c.name+" "+c.phone+" "+c.caseNo+" "+c.court+" "+c.caseType
+).toLowerCase();
+
+return text.includes(q)&&(!f||c.status===f);
+
+});
+
+$("clientTable").innerHTML=list.length?
+list.map(c=>{
+
+const rem=Math.max(0,(c.fee||0)-(c.paid||0));
+
+return `
+
+<tr>
+
+<td>${esc(c.clientId)}</td>
+
+<td>
+${c.pinned?"📌 ":""}<b>${esc(c.name)}</b>
+</td>
+
+<td>${esc(c.phone)}</td>
+
+<td>${esc(c.caseNo||"-")}</td>
+
+<td>
+<span class="badge ${esc(c.status)}">
+${esc(c.status)}
+</span>
+</td>
+
+<td>
+₹${money(c.fee)}
+<br>
+<small>बाकी ₹${money(rem)}</small>
+</td>
+
+<td>
+
+<button class="btn small"
+onclick="viewClient('${c.id}')">
+View
+</button>
+
+<button class="btn small"
+onclick="editClient('${c.id}')">
+Edit
+</button>
+
+<button class="btn gold small"
+onclick="payment('${c.id}')">
+₹
+</button>
+
+<button class="btn purple small"
+onclick="pinClient('${c.id}')">
+${c.pinned?"Unpin":"Pin"}
+</button>
+
+<button class="btn red small"
+onclick="deleteClient('${c.id}')">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("")
+:empty(7,"No clients / कोई ग्राहक नहीं");
+
+}
+
+
+/* ================= PIN ================= */
+
+function pinClient(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+c.pinned=!c.pinned;
+
+saveAll();
+render();
+
+toast(c.pinned?"Client pinned":"Client unpinned");
+
+}
+
+
+/* ================= CASES ================= */
+
+$("caseSearch").oninput=renderCases;
+$("caseStatusFilter").onchange=renderCases;
+
+function renderCases(){
+
+const q=value("caseSearch").toLowerCase();
+const f=value("caseStatusFilter");
+
+const list=clients.filter(c=>{
+
+const text=(
+c.name+" "+c.caseNo+" "+c.caseType+" "+c.court
+).toLowerCase();
+
+return c.caseNo&&text.includes(q)&&(!f||c.status===f);
+
+});
+
+$("caseTable").innerHTML=list.length?
+
+list.map(c=>`
+
+<tr>
+
+<td><b>${esc(c.caseNo)}</b></td>
+
+<td>${esc(c.name)}</td>
+
+<td>${esc(c.caseType||"-")}</td>
+
+<td>${esc(c.court||"-")}</td>
+
+<td>${esc(c.opposite||"-")}</td>
+
+<td>
+<span class="badge ${esc(c.status)}">
+${esc(c.status)}
+</span>
+</td>
+
+<td style="min-width:120px">
+${c.progress||0}%
+<div class="progress">
+<div class="progressbar"
+style="width:${c.progress||0}%">
+</div>
+</div>
+</td>
+
+</tr>
+
+`).join("")
+:empty(7,"No cases / कोई केस नहीं");
+
+}
+
+
+/* ================= CALENDAR ================= */
+
+function changeMonth(n){
+
+calendarDate.setMonth(calendarDate.getMonth()+n);
+
+renderCalendar();
+
+}
+
+function renderCalendar(){
+
+const y=calendarDate.getFullYear();
+const m=calendarDate.getMonth();
+
+const monthName=calendarDate.toLocaleString("en-IN",{
+month:"long",year:"numeric"
+});
+
+$("calendarTitle").textContent=
+monthName+" / कैलेंडर";
+
+const first=new Date(y,m,1).getDay();
+const days=new Date(y,m+1,0).getDate();
+
+let html="";
+
+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+.forEach(d=>{
+html+=`<div class="calday"><b>${d}</b></div>`
+});
+
+for(let i=0;i<first;i++){
+html+=`<div class="calday"></div>`;
+}
+
+for(let day=1;day<=days;day++){
+
+const date=
+`${y}-${String(m+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+const events=clients.filter(c=>c.hearing===date);
+
+html+=`
+
+<div class="calday">
+
+<b>${day}</b>
+
+${events.map(c=>`
+
+<div class="calevent"
+onclick="viewClient('${c.id}')">
+
+${esc(c.name)}
+
+</div>
+
+`).join("")}
+
+</div>
+
+`;
+
+}
+
+$("calendarBox").innerHTML=html;
+
+}
+
+
+/* ================= HEARINGS ================= */
+
+function renderHearings(){
+
+const list=clients
+.filter(c=>c.hearing)
+.sort((a,b)=>new Date(a.hearing)-new Date(b.hearing));
+
+$("hearingTable").innerHTML=list.length?
+
+list.map(c=>`
+
+<tr>
+
+<td>${esc(c.hearing)}</td>
+<td>${esc(c.name)}</td>
+<td>${esc(c.caseNo||"-")}</td>
+<td>${esc(c.court||"-")}</td>
+<td>
+<span class="badge ${esc(c.status)}">
+${esc(c.status)}
+</span>
+</td>
+
+</tr>
+
+`).join("")
+:empty(5,"No hearings / कोई सुनवाई नहीं");
+
+}
+
+function printHearings(){
+
+const rows=clients.filter(c=>c.hearing);
+
+const w=window.open("","_blank");
+
+w.document.write(`
+<html>
+<head>
+<title>Hearings - Avadesh Patel</title>
+</head>
+<body>
+<h2>Avadesh Patel - Hearing List</h2>
+<table border="1" cellspacing="0" cellpadding="8">
+<tr>
+<th>Date</th><th>Client</th><th>Case</th><th>Court</th>
+</tr>
+${rows.map(c=>`
+<tr>
+<td>${esc(c.hearing)}</td>
+<td>${esc(c.name)}</td>
+<td>${esc(c.caseNo)}</td>
+<td>${esc(c.court)}</td>
+</tr>`).join("")}
+</table>
+<script>window.print()<\/script>
+</body>
+</html>
+`);
+
+w.document.close();
+
+}
+
+
+/* ================= PAYMENTS ================= */
+
+function payment(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+currentPayment=x;
+
+const total=Number(c.fee||0);
+const paid=Number(c.paid||0);
+const rem=Math.max(0,total-paid);
+
+$("payBox").innerHTML=`
+
+<div class="detailgrid">
+
+<div class="detail">
+<strong>Client / ग्राहक</strong>${esc(c.name)}
+</div>
+
+<div class="detail">
+<strong>Total Fee / कुल फीस</strong>₹${money(total)}
+</div>
+
+<div class="detail">
+<strong>Paid / जमा</strong>₹${money(paid)}
+</div>
+
+<div class="detail">
+<strong>Remaining / बाकी</strong>₹${money(rem)}
+</div>
+
+</div>
+
+<br>
+
+<div class="formgrid">
+
+<div class="group">
+<label>Amount / राशि</label>
+<input id="payAmount" type="number" min="1">
+</div>
+
+<div class="group">
+<label>Mode / भुगतान तरीका</label>
+<select id="payMode">
+<option>Cash</option>
+<option>UPI</option>
+<option>Bank</option>
+<option>Cheque</option>
+</select>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="btn green" onclick="savePayment()">
+💾 Save Payment
+</button>
+
+</div>
+
+`;
+
+$("payModal").classList.add("show");
+
+}
+
+function savePayment(){
+
+const c=clients.find(a=>a.id===currentPayment);
+
+if(!c)return;
+
+const amount=Number(value("payAmount"));
+
+if(!amount||amount<=0){
+alert("Enter amount / राशि डालें");
+return;
+}
+
+const total=Number(c.fee||0);
+const already=Number(c.paid||0);
+
+if(already+amount>total&&total>0){
+
+if(!confirm(
+"Payment is more than remaining fee.\nक्या फिर भी सेव करना है?"
+))return;
+
+}
+
+c.paid=already+amount;
+c.paymentMode=value("payMode");
+
+payments.push({
+id:id(),
+clientId:c.id,
+clientName:c.name,
+amount,
+mode:c.paymentMode,
+date:new Date().toISOString().slice(0,10)
+});
+
+saveAll();
+
+closeModal("payModal");
+
+render();
+
+toast("Payment saved / भुगतान सेव हुआ");
+
+}
+
+function renderPayments(){
+
+let total=0,paid=0;
+
+clients.forEach(c=>{
+total+=Number(c.fee||0);
+paid+=Number(c.paid||0);
+});
+
+$("pTotal").textContent="₹"+money(total);
+$("pPaid").textContent="₹"+money(paid);
+$("pRemaining").textContent="₹"+money(Math.max(0,total-paid));
+
+$("paymentTable").innerHTML=clients.length?
+
+clients.map(c=>{
+
+const rem=Math.max(
+0,Number(c.fee||0)-Number(c.paid||0)
+);
+
+return `
+
+<tr>
+
+<td>${esc(c.name)}</td>
+
+<td>₹${money(c.fee)}</td>
+
+<td>₹${money(c.paid)}</td>
+
+<td style="color:${rem?"#dc2626":"#15803d"}">
+₹${money(rem)}
+</td>
+
+<td>${esc(c.paymentMode||"-")}</td>
+
+<td>
+<button class="btn gold small"
+onclick="payment('${c.id}')">
+Add Payment
+</button>
+</td>
+
+</tr>
+
+`;
+
+}).join("")
+
+:empty(6,"No clients / कोई ग्राहक नहीं");
+
+}
+
+
+/* ================= PAYMENT HISTORY ================= */
+
+function paymentHistory(x){
+
+const c=clients.find(a=>a.id===x);
+
+if(!c)return;
+
+const h=payments.filter(p=>p.clientId===x);
+
+let html=`
+<h3>${esc(c.name)} - Payment History</h3>
+<br>
+`;
+
+if(!h.length){
+
+html+=`<p style="color:var(--muted)">
+No payment history / भुगतान रिकॉर्ड नहीं
+</p>`;
+
+}else{
+
+html+=`
+
+<table>
+<tr>
+<th>Date</th>
+<th>Amount</th>
+<th>Mode</th>
+</tr>
+
+${h.map(p=>`
+
+<tr>
+<td>${esc(p.date)}</td>
+<td>₹${money(p.amount)}</td>
+<td>${esc(p.mode)}</td>
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+$("payBox").innerHTML=html;
+
+$("payModal").classList.add("show");
+
+}
+
+
+/* ================= TASKS ================= */
+
+function addTask(){
+
+const text=prompt(
+"Enter task / काम लिखें:"
+);
+
+if(!text)return;
+
+tasks.push({
+id:id(),
+text,
+done:false,
+date:new Date().toISOString().slice(0,10)
+});
+
+saveAll();
+renderTasks();
+renderDashboard();
+
+toast("Task added / काम जोड़ा गया");
+
+}
+
+function toggleTask(x){
+
+const t=tasks.find(a=>a.id===x);
+
+if(!t)return;
+
+t.done=!t.done;
+
+saveAll();
+renderTasks();
+renderDashboard();
+
+}
+
+function deleteTask(x){
+
+tasks=tasks.filter(a=>a.id!==x);
+
+saveAll();
+renderTasks();
+renderDashboard();
+
+}
+
+function renderTasks(){
+
+const active=tasks.filter(t=>!t.done).length;
+
+$("taskList").innerHTML=tasks.length?
+
+tasks.map(t=>`
+
+<div class="task ${t.done?"done":""}">
+
+<input type="checkbox"
+${t.done?"checked":""}
+onchange="toggleTask('${t.id}')">
+
+<span style="flex:1">
+${esc(t.text)}
+<br>
+<small>${esc(t.date)}</small>
+</span>
+
+<button class="btn red small"
+onclick="deleteTask('${t.id}')">
+Delete
+</button>
+
+</div>
+
+`).join("")
+
+:empty(1,"No tasks / कोई काम नहीं");
+
+$("sTasks").textContent=active;
+
+}
+
+
+/* ================= DOCUMENTS ================= */
+
+function addDocument(){
+
+const name=prompt(
+"Document name / दस्तावेज का नाम:"
+);
+
+if(!name)return;
+
+const client=prompt(
+"Client name / ग्राहक का नाम:"
+);
+
+documents.push({
+id:id(),
+name,
+client:client||"-",
+type:"General",
+date:new Date().toISOString().slice(0,10)
+});
+
+saveAll();
+renderDocuments();
+
+toast("Document added / दस्तावेज जोड़ा गया");
+
+}
+
+$("docSearch").oninput=renderDocuments;
+
+function renderDocuments(){
+
+const q=value("docSearch").toLowerCase();
+
+const list=documents.filter(d=>
+(d.name+" "+d.client).toLowerCase().includes(q)
+);
+
+$("docTable").innerHTML=list.length?
+
+list.map(d=>`
+
+<tr>
+
+<td>📄 ${esc(d.name)}</td>
+<td>${esc(d.client)}</td>
+<td>${esc(d.type)}</td>
+<td>${esc(d.date)}</td>
+
+<td>
+<button class="btn red small"
+onclick="deleteDocument('${d.id}')">
+Delete
+</button>
+</td>
+
+</tr>
+
+`).join("")
+
+:empty(5,"No documents / कोई दस्तावेज नहीं");
+
+}
+
+function deleteDocument(x){
+
+documents=documents.filter(d=>d.id!==x);
+
+saveAll();
+renderDocuments();
+
+}
+
+
+/* ================= NOTIFICATIONS ================= */
+
+function renderNotifications(){
+
+let n=[];
+
+const today=new Date();
+today.setHours(0,0,0,0);
+
+clients.forEach(c=>{
+
+const due=Math.max(
+0,Number(c.fee||0)-Number(c.paid||0)
+);
+
+if(due>0){
+
+n.push(`
+<div class="notification red">
+<b>💰 Payment Due / भुगतान बाकी</b><br>
+${esc(c.name)} — ₹${money(due)}
+</div>
+`);
+
+}
+
+if(c.hearing){
+
+const h=new Date(c.hearing);
+h.setHours(0,0,0,0);
+
+const diff=Math.ceil(
+(h-today)/(1000*60*60*24)
+);
+
+if(diff>=0&&diff<=7){
+
+n.push(`
+<div class="notification gold">
+<b>📅 Hearing Soon / जल्द सुनवाई</b><br>
+${esc(c.name)} — ${esc(c.hearing)}
+</div>
+`);
+
+}
+
+}
+
+if(c.status==="Urgent"){
+
+n.push(`
+<div class="notification red">
+<b>🚨 Urgent Case / जरूरी केस</b><br>
+${esc(c.name)} — ${esc(c.caseNo||"-")}
+</div>
+`);
+
+}
+
+});
+
+tasks.filter(t=>!t.done).forEach(t=>{
+
+n.push(`
+<div class="notification">
+<b>✅ Pending Task / बाकी काम</b><br>
+${esc(t.text)}
+</div>
+`);
+
+});
+
+$("notificationList").innerHTML=n.length?
+n.join("")
+:empty(1,"No notifications / कोई सूचना नहीं");
+
+}
+
+function clearNotifications(){
+
+$("notificationList").innerHTML=
+`<p style="color:var(--muted)">
+Notifications cleared for this view.
+</p>`;
+
+}
+
+
+/* ================= NOTES ================= */
+
+$("notesBox").value=
+localStorage.getItem("avadesh_notes")||"";
+
+function saveNotes(){
+
+localStorage.setItem(
+"avadesh_notes",
+$("notesBox").value
+);
+
+toast("Notes saved / नोट्स सेव हुए");
+
+}
+
+function clearNotes(){
+
+if(confirm("Clear notes?\nनोट्स हटाएं?")){
+
+$("notesBox").value="";
+
+localStorage.removeItem("avadesh_notes");
+
+}
+
+}
+
+
+/* ================= REPORTS ================= */
+
+function renderReports(){
+
+const total=clients.reduce(
+(s,c)=>s+Number(c.fee||0),0);
+
+const collected=clients.reduce(
+(s,c)=>s+Number(c.paid||0),0);
+
+$("rClients").textContent=clients.length;
+
+$("rRunning").textContent=
+clients.filter(c=>c.status==="Running").length;
+
+$("rClosed").textContent=
+clients.filter(c=>c.status==="Closed").length;
+
+$("rFees").textContent="₹"+money(total);
+
+$("rCollected").textContent="₹"+money(collected);
+
+$("rPending").textContent=
+"₹"+money(Math.max(0,total-collected));
+
+}
+
+
+/* ================= CHANGE PASSWORD ================= */
+
+function changePassword(){
+
+const old=prompt("Old password / पुराना पासवर्ड:");
+
+if(old!==password){
+
+alert("Wrong password / गलत पासवर्ड");
+return;
+
+}
+
+const np=prompt("New password / नया पासवर्ड:");
+
+if(!np)return;
+
+password=np;
+
+localStorage.setItem(
+"avadesh_password",
+password
+);
+
+toast("Password changed / पासवर्ड बदल गया");
+
+}
+
+
+/* ================= THEME ================= */
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"avadesh_theme",
+document.body.classList.contains("dark")
+?"dark":"light"
+);
+
+}
+
+if(localStorage.getItem("avadesh_theme")==="dark"){
+document.body.classList.add("dark");
+}
+
+
+/* ================= BACKUP ================= */
+
+function backupData(){
+
+const data={
+clients,
+tasks,
+documents,
+payments,
+notes:localStorage.getItem("avadesh_notes")||"",
+theme:localStorage.getItem("avadesh_theme")||"light"
+};
+
+const blob=new Blob(
+[JSON.stringify(data,null,2)],
+{type:"application/json"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+a.download="Avadesh-Patel-Backup.json";
+a.click();
+
+URL.revokeObjectURL(url);
+
+toast("Backup downloaded / बैकअप डाउनलोड हुआ");
+
+}
+
+
+/* ================= RESTORE ================= */
+
+$("restoreFile").onchange=e=>{
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=()=>{
+
+try{
+
+const data=JSON.parse(reader.result);
+
+if(Array.isArray(data.clients))
+clients=data.clients;
+
+if(Array.isArray(data.tasks))
+tasks=data.tasks;
+
+if(Array.isArray(data.documents))
+documents=data.documents;
+
+if(Array.isArray(data.payments))
+payments=data.payments;
+
+localStorage.setItem(
+"avadesh_notes",
+data.notes||""
+);
+
+saveAll();
+
+$("notesBox").value=data.notes||"";
+
+render();
+
+toast("Backup restored / बैकअप वापस आया");
+
+}catch{
+
+alert("Invalid backup file / गलत बैकअप फाइल");
+
+}
+
+};
+
+reader.readAsText(file);
+
+};
+
+
+/* ================= DELETE ALL ================= */
+
+function deleteAllData(){
+
+if(!confirm(
+"Delete ALL website data?\nक्या सारा डेटा हटाना है?"
+))return;
+
+clients=[];
+tasks=[];
+documents=[];
+payments=[];
+
+localStorage.removeItem("avadesh_clients");
+localStorage.removeItem("avadesh_tasks");
+localStorage.removeItem("avadesh_documents");
+localStorage.removeItem("avadesh_payments");
+localStorage.removeItem("avadesh_notes");
+
+render();
+
+toast("All data deleted / सारा डेटा हट गया");
+
+}
+
+
+/* ================= CSV EXPORT ================= */
+
+function exportCSV(){
+
+if(!clients.length){
+
+alert("No clients to export / कोई ग्राहक नहीं");
+
+return;
+
+}
+
+const rows=[[
+"Client ID",
+"Name",
+"Phone",
+"Email",
+"Case Number",
+"Case Type",
+"Court",
+"Opposite Party",
+"Status",
+"Progress",
+"Hearing",
+"Total Fee",
+"Paid",
+"Remaining"
+]];
+
+clients.forEach(c=>{
+
+rows.push([
+c.clientId,
+c.name,
+c.phone,
+c.email,
+c.caseNo,
+c.caseType,
+c.court,
+c.opposite,
+c.status,
+c.progress||0,
+c.hearing,
+c.fee||0,
+c.paid||0,
+Math.max(0,(c.fee||0)-(c.paid||0))
+]);
+
+});
+
+const csv=rows.map(r=>
+r.map(x=>`"${String(x??"").replaceAll('"','""')}"`).join(",")
+).join("\n");
+
+const blob=new Blob(
+[csv],
+{type:"text/csv;charset=utf-8"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+a.download="Avadesh-Clients.csv";
+a.click();
+
+URL.revokeObjectURL(url);
+
+toast("CSV exported / CSV डाउनलोड हुआ");
+
+}
+
+
+/* ================= CALENDAR ================= */
+
+let calDate=new Date();
+
+function changeMonth(n){
+
+calDate.setMonth(calDate.getMonth()+n);
+
+renderCalendar();
+
+}
+
+function renderCalendar(){
+
+const y=calDate.getFullYear();
+const m=calDate.getMonth();
+
+$("calendarTitle").textContent=
+calDate.toLocaleString("en-IN",{
+month:"long",
+year:"numeric"
+})+" / कैलेंडर";
+
+let html="";
+
+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+.forEach(d=>{
+html+=`<div class="calday"><b>${d}</b></div>`;
+});
+
+const first=new Date(y,m,1).getDay();
+const total=new Date(y,m+1,0).getDate();
+
+for(let i=0;i<first;i++)
+html+=`<div class="calday"></div>`;
+
+for(let d=1;d<=total;d++){
+
+const date=
+`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+
+const ev=clients.filter(c=>c.hearing===date);
+
+html+=`
+
+<div class="calday">
+<b>${d}</b>
+
+${ev.map(c=>`
+
+<div class="calevent"
+onclick="viewClient('${c.id}')">
+${esc(c.name)}
+</div>
+
+`).join("")}
+
+</div>
+`;
+
+}
+
+$("calendarBox").innerHTML=html;
+
+}
+
+
+/* ================= RENDER ALL ================= */
+
+function render(){
+
+renderDashboard();
+renderClients();
+renderCases();
+renderHearings();
+renderPayments();
+renderTasks();
+renderDocuments();
+renderNotifications();
+renderReports();
+renderCalendar();
+
+}
+
+
+/* ================= INITIAL ================= */
+
+render();
+
+</script>
+
+</body>
+</html>
